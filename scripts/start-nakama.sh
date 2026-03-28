@@ -1,13 +1,8 @@
 #!/bin/sh
 set -e
 
-# Wait for Postgres to be ready
-echo "Waiting for database..."
-until /nakama/nakama migrate up \
-  --database.address "${DATABASE_URL}" 2>&1 | grep -v "error"; do
-  echo "Migration not ready yet, retrying in 3s..."
-  sleep 3
-done
+echo "Running database migrations..."
+/nakama/nakama migrate up --database.address "${DATABASE_URL}"
 
 echo "Starting Nakama..."
 exec /nakama/nakama \
