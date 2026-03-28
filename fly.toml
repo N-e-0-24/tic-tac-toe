@@ -1,0 +1,43 @@
+app = "tictactoe-nakama"
+primary_region = "sin"
+
+[build]
+  dockerfile = "Dockerfile.nakama"
+
+[env]
+  SERVER_KEY = "tictactoe-server-key"
+
+[[services]]
+  protocol = "tcp"
+  internal_port = 7350
+
+  [[services.ports]]
+    port = 443
+    handlers = ["tls", "http"]
+
+  [[services.ports]]
+    port = 80
+    handlers = ["http"]
+
+  [services.concurrency]
+    type = "connections"
+    hard_limit = 100
+    soft_limit = 80
+
+  [[services.tcp_checks]]
+    interval = "15s"
+    timeout = "2s"
+    grace_period = "5s"
+
+[[services]]
+  protocol = "tcp"
+  internal_port = 7349
+
+  [[services.ports]]
+    port = 7349
+    handlers = ["tls"]
+
+[[vm]]
+  memory = "512mb"
+  cpu_kind = "shared"
+  cpus = 1

@@ -1,0 +1,5 @@
+FROM heroiclabs/nakama:3.21.1
+COPY server/modules /nakama/data/modules
+COPY scripts/start-nakama.sh /start.sh
+RUN chmod +x /start.sh
+ENTRYPOINT ["/start.sh"]
