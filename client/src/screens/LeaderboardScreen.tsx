@@ -106,7 +106,7 @@ export default function LeaderboardScreen({ username, onBack, fetchLeaderboard, 
                 </div>
               ) : (
                 <div className="divide-y divide-white/[0.04]">
-                  {entries.map((entry, i) => (
+                  {entries.map((entry) => (
                     <div
                       key={entry.ownerId}
                       className={`flex items-center gap-3 px-5 py-3.5 transition-colors ${
